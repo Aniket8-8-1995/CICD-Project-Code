@@ -1,0 +1,41 @@
+pipeline {
+
+	agent {
+				label {
+					
+						label "built-in"
+						customWorkspace "/mnt/wars"
+				
+				}
+	}
+	
+	environment {
+						
+						devip = "10.0.1.113"
+						qaip = "10.0.2.248"
+		
+		}
+	
+	stages {
+	
+				stage ("COPY_DEV_WAR") {
+				
+					steps {
+								sh "scp -r TrainBook-1.0.0-SNAPSHOT.war aniket@${devip}:/mnt/wars"
+					}
+				
+				}
+				
+				stage ("COPY_QA_WAR") {
+				
+					steps {
+								sh "scp -r TrainBook-1.0.0-SNAPSHOT.war aniket@${qaip}:/mnt/wars"
+					}
+				
+				}
+		
+		
+		
+	}
+
+}
