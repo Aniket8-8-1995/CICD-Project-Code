@@ -1,0 +1,40 @@
+pipeline {
+
+	agent {
+					label {
+						
+							label "qa-env"
+							customWorkspace "/mnt/project"
+						
+					}
+	}
+	
+	environment {
+						
+						composeurl = "https://github.com/Aniket8-8-1995/Docker-Compose.git"
+						composedirname = "devops-project"
+		}
+	
+	stages {
+		
+			stage ("CLONE-DOCKERC-FILE"){
+			
+				steps {     
+				            sh "rm -rf *"
+							sh "git clone ${composeurl}"
+				}
+			
+			}
+			
+			stage ("RUN_COMPOSE"){
+			
+				steps {
+				                        sh "sudo systemctl start docker"
+							sh "cd ${composedirname} && sudo docker-compose up -d"
+				}
+			
+			}
+	
+	}
+
+}
